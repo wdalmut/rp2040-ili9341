@@ -3,6 +3,8 @@
 This demo create a base project for ILI9341 with 8bit parallel port and PIO from
 RP2040.
 
+![tft-ili9341.jpeg](tft-ili9341.jpeg)
+
 ## Connections
 
  * VBus -> 5V
