@@ -14,3 +14,21 @@ RP2040.
  * RS -> GP14
  * CS -> GP15
  * RESET -> 3.3
+
+## Library
+
+this project can be used as library just use the `src` folder during you project
+build 
+
+```cmake
+add_subdirectory(libs/rp2040-ili9341/src)
+```
+
+and then add the library `libili9341` in your `target_link_libraries`
+
+```cmake
+target_link_libraries(${PROJECT_NAME}
+    PUBLIC
+    pico_stdlib
+    libili9341)
+```
