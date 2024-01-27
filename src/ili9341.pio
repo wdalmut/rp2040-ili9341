@@ -1,0 +1,45 @@
+.program ili9341_pio_cmd
+; CSX, D/CX, WRX, RDX --> gpio 15, 14, 13, 12  (set pins)
+.wrap_target
+start:
+set y,0       ; set pins out
+mov osr, !y
+out pindirs 8
+pull
+set pins, 0b0011
+mov x, osr             ;command code, if 0x0, command nop, only data
+jmp !x param
+set pins, 0b0001
+out pins, 8      ;[1]
+set pins, 0b0011 ;[1]
+param:
+set pins, 0b0111
+pull
+mov x, osr              ;how many parameters
+jmp !x, start            ;no parameter return start
+; input or output
+pull                    ; dir
+mov y, osr
+out pindirs, 8        ; if 0x00 set to input
+jmp x--, param_data         
+param_data:
+set pins, 0b1111
+jmp !y read
+; write command parameters
+write:
+pull                    ; write data
+set pins, 0b0101 
+out pins, 8      ;[1] 
+set pins, 0b0111 ;[1]
+jmp x--, write
+jmp finish
+; === 
+read:
+set pins, 0b0110 [3]
+in pins, 8 
+set pins, 0b0111
+push 
+jmp x--, read
+finish:
+set pins, 0b1111
+.wrap
