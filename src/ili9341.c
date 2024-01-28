@@ -73,7 +73,7 @@ void ili9431_pio_cmd_init(PIO pio, uint sm, uint in_out_base,  uint set_base, ui
 /* ili3941 draw functions*/
 uint16_t ili9341_color_565RGB(uint8_t R, uint8_t G, uint8_t B) {
     uint16_t c;
-    c = (((uint16_t)R)>>3)<<11 | (((uint16_t)G)>>2) << 5 | ((uint16_t)B)>>3;
+    c = (((uint16_t)B)>>3)<<11 | (((uint16_t)G)>>2) << 5 | ((uint16_t)R)>>3;
     return c;
 }
 void ili9341_memory_write_window(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
